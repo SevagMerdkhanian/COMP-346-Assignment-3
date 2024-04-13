@@ -25,9 +25,9 @@ public class Philosopher extends BaseThread
 	{
 		try
 		{
-			// ...
+			System.out.println("Philosoper " + getTID() + " has started eating..."); //philosopher has started eating
 			sleep((long)(Math.random() * TIME_TO_WASTE));
-			// ...
+			System.out.println("Philosopher " + getTID() + " is done eating."); //philosopher is done eating
 		}
 		catch(InterruptedException e)
 		{
@@ -47,7 +47,16 @@ public class Philosopher extends BaseThread
 	 */
 	public void think()
 	{
-		// ...
+		try {
+			System.out.println("Philosoper " + getTID() + " has started thinking..."); //philosopher has started thinking
+			sleep((long)(Math.random() * TIME_TO_WASTE)); //sleep for a random interval of time from 0 to TIME_TO_WASTE
+			System.out.println("Philosopher " + getTID() + " is done thinking."); //philosopher is done thinking
+		}
+		catch (InterruptedException e) { //exception handling
+			System.err.println("Philosopher.think():");
+			DiningPhilosophers.reportException(e);
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -60,11 +69,11 @@ public class Philosopher extends BaseThread
 	 */
 	public void talk()
 	{
-		// ...
-
+		System.out.println("Philosoper " + getTID() + " has started talking..."); //philosopher has started talking
+		
 		saySomething();
-
-		// ...
+		
+		System.out.println("Philosoper " + getTID() + " is done talking..."); //philosopher is done talking
 	}
 
 	/**
@@ -87,14 +96,12 @@ public class Philosopher extends BaseThread
 			 * A decision is made at random whether this particular
 			 * philosopher is about to say something terribly useful.
 			 */
-			if(true == false)
+			if(Math.random() < 0.5) // A random decision: 50% chance of being true
 			{
-				// Some monitor ops down here...
+				DiningPhilosophers.soMonitor.requestTalk(getTID()); //get access to the monitor
 				talk();
-				// ...
+				DiningPhilosophers.soMonitor.endTalk(); //free up monitor
 			}
-
-			yield();
 		}
 	} // run()
 

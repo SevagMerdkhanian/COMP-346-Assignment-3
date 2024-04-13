@@ -95,7 +95,7 @@ public class Philosopher extends BaseThread
 				// ...
 			}
 
-			yield();
+//			yield();
 		}
 	} // run()
 
